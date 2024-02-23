@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .search-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .search input {
+            padding: 10px;
+            width: 200px;
+        }
+
+        #suggestions-container {
+            display: none;
+            position: absolute;
+            width: 200px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            z-index: 1;
+        }
+
+        .suggestion {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestion:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="search-container">
+    <div class="search">
+        <input type="text" id="cityInput" placeholder="Enter a city">
+        <div id="suggestions-container"></div>
+    </div>
+</div>
+
+<script>
+    const apiKey = "12edbc4b1078fa0c857ebdda88fed362";
+    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+    const cityInput = document.getElementById('cityInput');
+    const suggestionsContainer = document.getElementById('suggestions-container');
+
+    cityInput.addEventListener('input', debounce(handleInput, 300));
+
+    function debounce(func, delay) {
+        let timeout;
+        return function () {
+            const context = this;
+            const args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                func.apply(context, args);
+            }, delay);
+        };
+    }
+
+    async function handleInput() {
+        const inputText = cityInput.value.trim();
+        if (inputText === '') {
+            suggestionsContainer.style.display = 'none';
+            return;
+        }
+
+        const suggestions = await getSuggestions(inputText);
+
+        renderSuggestions(suggestions);
+    }
+
+    async function getSuggestions(query) {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/find?q=${query}&type=like&sort=population&cnt=5&appid=${apiKey}`);
+        const data = await response.json();
+        return data.list.map(item => item.name);
+    }
+
+    function renderSuggestions(suggestions) {
+        suggestionsContainer.innerHTML = '';
+        suggestions.forEach(suggestion => {
+            const suggestionElement = document.createElement('div');
+            suggestionElement.classList.add('suggestion');
+            suggestionElement.textContent = suggestion;
+            suggestionElement.addEventListener('click', () => {
+                cityInput.value = suggestion;
+                suggestionsContainer.style.display = 'none';
+                // You can perform additional actions when a suggestion is clicked, like fetching weather data
+                // For simplicity, this example just logs the selected suggestion to the console
+                console.log(`Selected suggestion: ${suggestion}`);
+            });
+            suggestionsContainer.appendChild(suggestionElement);
+        });
+
+        suggestionsContainer.style.display = 'block';
+    }
+ // Replace 'path/to/city.list.json' with the actual URL or relative path to your city.list.json file
+const jsonFileURL = 'city.list.json';
+
+// Fetch the JSON file
+fetch(jsonFileURL)
+  .then(response => response.json())
+  .then(data => {
+    // Extract city names into an array
+    const cityNames = data.map(city => city.name);
+
+    // Now, 'cityNames' is an array containing names of all the cities
+    console.log(cityNames);
+  })
+  .catch(error => console.error('Error fetching JSON:', error));
+
+
+</script>
+
+</body>
+</html>

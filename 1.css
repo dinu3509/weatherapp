@@ -1,0 +1,123 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background:url("batman.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.title{
+    text-align: center;
+
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50px;
+    color: white;
+}
+.card{
+    width: 90%;
+    max-width: 470px;
+    background: transparent;
+    backdrop-filter: blur(50px);
+    color: #fff;
+    margin: 100px auto 0;
+    border-radius: 20px;
+    padding: 40px 35px;
+    border: 1px solid white;
+}
+
+.search-box{
+    border-radius: 50px ;
+    width: 400px;
+    background: #fff;
+    margin: 10px auto 0;
+}
+.row{
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+input{
+    flex: 1;
+    height: 60px;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    color: #333;
+}
+button{
+    background: #ebfffc;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+        border: 0;
+    outline: 0;
+}
+button:hover{
+    cursor: pointer;
+}
+.result-box ul{
+    color: black;
+   
+    
+}
+.result-box ul li{
+    list-style: none;
+    border-radius: 3px;
+    text-align: left;
+    padding: 15px 10px;
+}
+.result-box ul li:hover{
+    cursor: pointer;
+    background: #e9f3ff;
+}
+
+.search-box button img{
+    width: 16px;
+}
+.weather{
+    display: none;
+    text-align: center;
+}
+.weather-icon{
+    width: 170px;
+    margin-top: 30px;
+
+}
+.weather h1{
+    font-size: 80px;
+    font-weight: 500;
+    text-align: center;
+}
+.weather h2{
+    font-size: 45px;
+    font-weight: 400;
+    margin-top: -10px;
+    text-align: center;
+}
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: 50px;
+}
+.col{
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+.col img{
+    width: 40px;
+    margin-right:10px ;
+}
+.humidity , .wind{
+    font-size: 28px;
+    margin-top: -6px;
+}
