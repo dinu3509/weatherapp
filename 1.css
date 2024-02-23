@@ -33,7 +33,7 @@ body{
 
 .search-box{
     border-radius: 50px ;
-    width: 400px;
+    width: 100%;
     background: #fff;
     margin: 10px auto 0;
 }
@@ -121,3 +121,7 @@ button:hover{
     font-size: 28px;
     margin-top: -6px;
 }
+@media (max-width: 496px) {
+    
+  }
+  
